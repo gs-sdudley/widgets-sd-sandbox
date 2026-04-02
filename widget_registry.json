@@ -1,7 +1,7 @@
 {
   "widgets": [
     {
-      "category": "Demo",
+      "category": "custom",
       "configuration": {
         "properties": [
           {
@@ -111,7 +111,7 @@
         "shared": false,
         "movable": false
       },
-      "title": "Card Grid",
+      "title": "Sarah's Card Grid",
       "version": "1.0.0",
       "widgetsLibrary": true,
       "type": "card_grid",
@@ -122,7 +122,7 @@
       "imageSrc": "widgets/card_grid/thumbnail.png"
     },
     {
-      "category": "Demo",
+      "category": "custom",
       "containers": [
         "Full width"
       ],
