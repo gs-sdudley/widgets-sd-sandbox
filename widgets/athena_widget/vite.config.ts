@@ -12,5 +12,10 @@ export default defineConfig({
       formats: ["es"],
       fileName: "widget",
     },
+    rollupOptions: {
+      output: {
+        inlineDynamicImports: true,
+      },
+    },
   },
 });

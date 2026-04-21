@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build"
+    "build": "vite build",
+    "postbuild": "cp public/widget.css dist/widget.css && echo '<link rel=\"stylesheet\" href=\"./widget.css\"><script type=\"module\" src=\"./widget.js\"></script>' > dist/index.html"
   },
   "dependencies": {
     "@aws-sdk/client-athena": "^3.1033.0",
