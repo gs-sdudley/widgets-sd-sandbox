@@ -1,0 +1,37 @@
+{
+  "version": "1.0.0",
+  "title": "Athena Widget",
+  "description": "A React widget using the ESM module pattern with Widget SDK to leverage CC Data Lake information via Athena Service",
+  "category": "Demo",
+  "imageSrc": "thumbnail.png",
+  "source": {
+    "path": "dist",
+    "entry": "index.html"
+  },
+  "configuration": {
+    "properties": [
+      {
+        "name": "AWSRegion",
+        "type": "text",
+        "label": "Region",
+        "defaultValue": "us-west-2",
+        "rules": {
+          "required": true
+        }
+      },
+      {
+        "name": "AWSBucket",
+        "type": "text",
+        "label": "AWS Bucket",
+        "defaultValue": "production-insided-data-repository-us-west-2",
+        "rules": {
+          "required": true
+        }
+      }
+    ]
+  },
+  "defaultConfig": {
+    "AWSRegion": "us-west-2",
+    "AWSBucket": ""
+  }
+}
