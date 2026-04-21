@@ -232,7 +232,7 @@
       "title": "Athena Data Lake Widget",
       "version": "1.0.0",
       "widgetsLibrary": true,
-      "type": "react_widget",
+      "type": "athena_widget",
       "source": {
         "path": "widgets/athena_widget/dist",
         "entry": "index.html"
