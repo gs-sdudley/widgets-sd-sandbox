@@ -189,6 +189,55 @@
         "entry": "index.html"
       },
       "imageSrc": "widgets/react_widget/thumbnail.png"
+    },
+     {
+      "category": "Demo",
+      "configuration": {
+        "properties": [
+          {
+            "name": "AWSRegion",
+            "type": "text",
+            "label": "Region",
+            "defaultValue": "us-west-2",
+            "rules": {
+              "required": true
+            }
+          },
+          {
+            "name": "AWSBucket",
+            "type": "text",
+            "label": "AWS Bucket",
+            "defaultValue": "production-insided-data-repository-us-west-2",
+            "rules": {
+              "required": true
+            }
+          }
+        ]
+      },
+      "containers": [
+        "Full width"
+      ],
+      "defaultConfig": {
+        "AWSRegion": "us-west-2",
+        "AWSBucket": ""
+      },
+      "description": "A React widget using the ESM module pattern with Widget SDK to connect to the CC Data Lake via Athena",
+      "settings": {
+        "configurable": true,
+        "editable": true,
+        "removable": true,
+        "shared": false,
+        "movable": false
+      },
+      "title": "Athena Data Lake Widget",
+      "version": "1.0.0",
+      "widgetsLibrary": true,
+      "type": "react_widget",
+      "source": {
+        "path": "widgets/athena_widget/dist",
+        "entry": "index.html"
+      },
+      "imageSrc": "widgets/athena_widget/cc_datalake_widget_thumbnail.png"
     }
   ],
   "stylesheets": [
