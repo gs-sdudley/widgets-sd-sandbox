@@ -1,4 +1,4 @@
 (function () {
   "use strict";
-  console.log("testing cache for scripts - cache updated");
+  console.log("testing cache for scripts");
 })();
