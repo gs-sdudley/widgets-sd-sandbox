@@ -1,12 +1,4 @@
 {
-  "scripts": [
-    {
-      "name": "hello",
-      "path": "scripts/cachetesting/test.js",
-      "description": "Logs a greeting to the console on every page",
-      "placement": "head"
-    }
-  ],
   "widgets": [
     {
       "category": "custom",
@@ -278,6 +270,12 @@
       "name": "analytics",
       "description": "Tracks widget impressions and interactions",
       "path": "./scripts/analytics/script.js"
+    },
+    {
+      "name": "hello",
+      "path": "scripts/cachetesting/test.js",
+      "description": "Logs a greeting to the console on every page",
+      "placement": "head"
     }
   ]
 }
