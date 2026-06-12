@@ -2,7 +2,7 @@
   "scripts": [
     {
       "name": "hello",
-      "path": "scripts/hello/script.js",
+      "path": "scripts/cachetesting/test.js",
       "description": "Logs a greeting to the console on every page",
       "placement": "head"
     }
