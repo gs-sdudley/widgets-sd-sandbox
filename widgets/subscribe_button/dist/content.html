@@ -51,7 +51,7 @@
 </style>
 
 <div class="sub-widget">
-  <button class="sub-btn sub-btn--subscribe" id="sub-btn" disabled>Loading…</button>
+  <button class="sub-btn sub-btn--subscribe" id="sub-btn">Loading…</button>
   <div class="sub-error" id="sub-error" hidden></div>
 </div>
 
@@ -79,7 +79,7 @@
 
       function setSubscribed(isSubscribed) {
         subscribed = isSubscribed;
-        btn.textContent = isSubscribed ? 'Unsubscribe' : 'Subscribe';
+        btn.textContent = isSubscribed ? 'Unsubscribe' : 'Subscribe ${categoryId}';
         btn.className = 'sub-btn ' + (isSubscribed ? 'sub-btn--unsubscribe' : 'sub-btn--subscribe');
         btn.disabled = false;
       }
