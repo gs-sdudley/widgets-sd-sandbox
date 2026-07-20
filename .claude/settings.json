@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:developers.insided.com)",
+      "Bash(xargs ls -la)",
+      "WebFetch(domain:developer-portal.gainsight.com)"
+    ]
+  }
+}

@@ -1,0 +1,127 @@
+<style>
+  .sub-widget {
+    display: inline-block;
+    font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+  }
+
+  .sub-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-sm, 8px) var(--spacing-md, 16px);
+    border-radius: var(--radius-sm, 4px);
+    font-family: inherit;
+    font-size: var(--font-size-sm, 0.875rem);
+    font-weight: 500;
+    line-height: 1;
+    cursor: pointer;
+    transition: background 0.15s ease;
+  }
+
+  .sub-btn--subscribe {
+    background: var(--color-primary, #3b82f6);
+    color: #fff;
+    border: 1px solid transparent;
+  }
+
+  .sub-btn--subscribe:hover:not(:disabled) {
+    background: var(--color-primary-dark, #2563eb);
+  }
+
+  .sub-btn--unsubscribe {
+    background: var(--color-bg-subtle, #f9fafb);
+    color: var(--color-text, #1f2937);
+    border: 1px solid var(--color-border, #e5e7eb);
+  }
+
+  .sub-btn--unsubscribe:hover:not(:disabled) {
+    background: var(--color-border, #e5e7eb);
+  }
+
+  .sub-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .sub-error {
+    margin-top: var(--spacing-xs, 4px);
+    font-size: var(--font-size-sm, 0.875rem);
+    color: var(--color-danger, #ef4444);
+  }
+</style>
+
+<div class="sub-widget">
+  <button class="sub-btn sub-btn--subscribe" id="sub-btn" disabled>Loading…</button>
+  <div class="sub-error" id="sub-error" hidden></div>
+</div>
+
+<script>
+  (function () {
+    var host = document.querySelector('gs-cc-registry-widget[data-widget-type*="subscribe_button"]');
+    if (!host || !host.shadowRoot) return;
+    if (host._subBtnInitialized) return;
+    host._subBtnInitialized = true;
+
+    var root = host.shadowRoot;
+    var btn = root.querySelector('#sub-btn');
+    var errorEl = root.querySelector('#sub-error');
+    if (!btn || !errorEl) return;
+    var subscribed = false;
+
+    var params = new URLSearchParams(window.location.search);
+    var categoryId = params.get('categoryId');
+
+    function showError(msg) {
+      errorEl.textContent = msg;
+      errorEl.hidden = !msg;
+    }
+
+    function setSubscribed(isSubscribed) {
+      subscribed = isSubscribed;
+      btn.textContent = isSubscribed ? 'Unsubscribe' : 'Subscribe';
+      btn.className = 'sub-btn ' + (isSubscribed ? 'sub-btn--unsubscribe' : 'sub-btn--subscribe');
+      btn.disabled = false;
+    }
+
+    if (!categoryId) {
+      btn.textContent = 'Subscribe';
+      btn.disabled = true;
+      showError('No categoryId query parameter found.');
+      return;
+    }
+
+    if (typeof ChWebSdk === 'undefined') {
+      btn.disabled = true;
+      showError('Community SDK not available.');
+      return;
+    }
+
+    ChWebSdk.onReady(async function () {
+      try {
+        var isSubscribed = await ChWebSdk.Subscription.getCategorySubscriptionStatus(categoryId);
+        setSubscribed(isSubscribed);
+      } catch (e) {
+        btn.textContent = 'Subscribe';
+        btn.disabled = true;
+        showError('Failed to load subscription status.');
+        return;
+      }
+
+      btn.addEventListener('click', async function () {
+        btn.disabled = true;
+        showError('');
+        try {
+          if (subscribed) {
+            await ChWebSdk.Subscription.unsubscribeFromCategory(categoryId);
+          } else {
+            await ChWebSdk.Subscription.subscribeToCategory(categoryId);
+          }
+          setSubscribed(!subscribed);
+        } catch (e) {
+          btn.disabled = false;
+          showError('Action failed. Please try again.');
+        }
+      });
+    });
+  })();
+</script>
