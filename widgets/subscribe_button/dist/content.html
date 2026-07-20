@@ -96,10 +96,7 @@
           var isSubscribed = await ChWebSdk.Subscription.getCategorySubscriptionStatus(categoryId);
           setSubscribed(isSubscribed);
         } catch (e) {
-          btn.textContent = 'Subscribe';
-          btn.disabled = true;
-          showError('Failed to load subscription status.');
-          return;
+          setSubscribed(false);
         }
 
         btn.addEventListener('click', async function () {
