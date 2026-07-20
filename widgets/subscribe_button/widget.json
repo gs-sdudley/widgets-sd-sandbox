@@ -2,7 +2,7 @@
   "version": "1.0.0",
   "title": "Subscribe Button",
   "description": "Subscribe or unsubscribe from a category driven by a ?categoryId= URL query parameter. Uses the ChWebSdk Subscription API.",
-  "category": "Community",
+  "category": "Custom",
   "source": {
     "path": "dist",
     "entry": "content.html"

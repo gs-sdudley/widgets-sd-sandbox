@@ -1,7 +1,49 @@
 {
   "widgets": [
     {
-      "category": "custom",
+      "version": "1.0.0",
+      "title": "Athena Widget",
+      "description": "A React widget using the ESM module pattern with Widget SDK to leverage CC Data Lake information via Athena Service",
+      "category": "Demo",
+      "imageSrc": "widgets/athena_widget/thumbnail.png",
+      "source": {
+        "path": "widgets/athena_widget/dist",
+        "entry": "index.html"
+      },
+      "configuration": {
+        "properties": [
+          {
+            "name": "AWSRegion",
+            "type": "text",
+            "label": "Region",
+            "defaultValue": "us-west-2",
+            "rules": {
+              "required": true
+            }
+          },
+          {
+            "name": "AWSBucket",
+            "type": "text",
+            "label": "AWS Bucket",
+            "defaultValue": "production-insided-data-repository-us-west-2",
+            "rules": {
+              "required": true
+            }
+          }
+        ]
+      },
+      "defaultConfig": {
+        "AWSRegion": "us-west-2",
+        "AWSBucket": ""
+      },
+      "type": "athena_widget"
+    },
+    {
+      "version": "1.0.0",
+      "title": "Card Grid",
+      "description": "A configurable card grid widget demonstrating dynamic layout and styling options",
+      "category": "Demo",
+      "imageSrc": "widgets/card_grid/thumbnail.png",
       "configuration": {
         "properties": [
           {
@@ -91,9 +133,6 @@
           }
         ]
       },
-      "containers": [
-        "Full width"
-      ],
       "defaultConfig": {
         "cards_per_row": 3,
         "card_background": "#ffffff",
@@ -103,49 +142,34 @@
         "card_style": "shadow",
         "show_icons": "yes"
       },
-      "description": "A configurable card grid widget demonstrating dynamic layout and styling options",
-      "settings": {
-        "configurable": true,
-        "editable": true,
-        "removable": true,
-        "shared": false,
-        "movable": false
-      },
-      "title": "Sarah's Card Grid",
-      "version": "1.0.0",
-      "widgetsLibrary": true,
-      "type": "card_grid",
       "source": {
         "path": "widgets/card_grid/dist",
         "entry": "content.html"
       },
-      "imageSrc": "widgets/card_grid/thumbnail.png"
+      "type": "card_grid"
     },
     {
-      "category": "custom",
-      "containers": [
-        "Full width"
-      ],
-      "description": "Demo widget for presentation purposes",
-      "settings": {
-        "configurable": true,
-        "editable": true,
-        "removable": true,
-        "shared": false,
-        "movable": false
-      },
-      "title": "Demo widget",
       "version": "1.0.0",
-      "widgetsLibrary": true,
-      "type": "demo_widget",
+      "title": "Demo widget",
+      "description": "Demo widget for presentation purposes",
+      "category": "Demo",
+      "imageSrc": "widgets/demo_widget/thumbnail.png",
       "source": {
         "path": "widgets/demo_widget/dist",
         "entry": "content.html"
       },
-      "imageSrc": "widgets/demo_widget/thumbnail.png"
+      "type": "demo_widget"
     },
     {
+      "version": "1.0.0",
+      "title": "React Widget",
+      "description": "A React widget using the ESM module pattern with Widget SDK",
       "category": "Demo",
+      "imageSrc": "widgets/react_widget/thumbnail.png",
+      "source": {
+        "path": "widgets/react_widget/dist",
+        "entry": "index.html"
+      },
       "configuration": {
         "properties": [
           {
@@ -165,79 +189,22 @@
           }
         ]
       },
-      "containers": [
-        "Full width"
-      ],
       "defaultConfig": {
         "title": "React Widget",
         "description": "A widget built with React and the Widget SDK."
       },
-      "description": "A React widget using the ESM module pattern with Widget SDK",
-      "settings": {
-        "configurable": true,
-        "editable": true,
-        "removable": true,
-        "shared": false,
-        "movable": false
-      },
-      "title": "React Widget",
-      "version": "1.0.0",
-      "widgetsLibrary": true,
-      "type": "react_widget",
-      "source": {
-        "path": "widgets/react_widget/dist",
-        "entry": "index.html"
-      },
-      "imageSrc": "widgets/react_widget/thumbnail.png"
+      "type": "react_widget"
     },
-     {
-      "category": "Demo",
-      "configuration": {
-        "properties": [
-          {
-            "name": "AWSRegion",
-            "type": "text",
-            "label": "Region",
-            "defaultValue": "us-west-2",
-            "rules": {
-              "required": true
-            }
-          },
-          {
-            "name": "AWSBucket",
-            "type": "text",
-            "label": "AWS Bucket",
-            "defaultValue": "production-insided-data-repository-us-west-2",
-            "rules": {
-              "required": true
-            }
-          }
-        ]
-      },
-      "containers": [
-        "Full width"
-      ],
-      "defaultConfig": {
-        "AWSRegion": "us-west-2",
-        "AWSBucket": ""
-      },
-      "description": "A React widget using the ESM module pattern with Widget SDK to connect to the CC Data Lake via Athena",
-      "settings": {
-        "configurable": true,
-        "editable": true,
-        "removable": true,
-        "shared": false,
-        "movable": false
-      },
-      "title": "Athena Data Lake Widget",
+    {
       "version": "1.0.0",
-      "widgetsLibrary": true,
-      "type": "athena_widget",
+      "title": "Subscribe Button",
+      "description": "Subscribe or unsubscribe from a category driven by a ?categoryId= URL query parameter. Uses the ChWebSdk Subscription API.",
+      "category": "Custom",
       "source": {
-        "path": "widgets/athena_widget/dist",
-        "entry": "index.html"
+        "path": "widgets/subscribe_button/dist",
+        "entry": "content.html"
       },
-      "imageSrc": "widgets/athena_widget/cc_datalake_widget_thumbnail.png"
+      "type": "subscribe_button"
     }
   ],
   "stylesheets": [
@@ -267,15 +234,25 @@
           ]
         }
       ],
+      "placement": "head",
       "name": "analytics",
       "description": "Tracks widget impressions and interactions",
       "path": "./scripts/analytics/script.js"
     },
     {
-      "name": "hello",
-      "path": "scripts/cachetesting/test.js",
-      "description": "Logs a greeting to the console on every page",
-      "placement": "head"
+      "rules": [
+        {
+          "field": "pageType",
+          "operator": "in",
+          "value": [
+            "global"
+          ]
+        }
+      ],
+      "placement": "head",
+      "name": "cachetesting",
+      "description": "testing caching issues with sync",
+      "path": "./scripts/cachetesting/script.js"
     }
   ]
 }
