@@ -57,65 +57,73 @@
 
 <script>
   (function () {
-    var host = document.querySelector('gs-cc-registry-widget[data-widget-type*="subscribe_button"]');
-    if (!host || !host.shadowRoot) return;
-    if (host._subBtnInitialized) return;
-    host._subBtnInitialized = true;
+    function init() {
+      var host = document.querySelector('gs-cc-registry-widget[data-widget-type*="subscribe_button"]');
+      if (!host || !host.shadowRoot) return;
+      if (host._subBtnInitialized) return;
+      host._subBtnInitialized = true;
 
-    var root = host.shadowRoot;
-    var btn = root.querySelector('#sub-btn');
-    var errorEl = root.querySelector('#sub-error');
-    if (!btn || !errorEl) return;
-    var subscribed = false;
+      var root = host.shadowRoot;
+      var btn = root.querySelector('#sub-btn');
+      var errorEl = root.querySelector('#sub-error');
+      if (!btn || !errorEl) return;
+      var subscribed = false;
 
-    var params = new URLSearchParams(window.location.search);
-    var categoryId = params.get('categoryId');
+      var params = new URLSearchParams(window.location.search);
+      var categoryId = params.get('categoryId');
 
-    function showError(msg) {
-      errorEl.textContent = msg;
-      errorEl.hidden = !msg;
-    }
+      function showError(msg) {
+        errorEl.textContent = msg;
+        errorEl.hidden = !msg;
+      }
 
-    function setSubscribed(isSubscribed) {
-      subscribed = isSubscribed;
-      btn.textContent = isSubscribed ? 'Unsubscribe' : 'Subscribe';
-      btn.className = 'sub-btn ' + (isSubscribed ? 'sub-btn--unsubscribe' : 'sub-btn--subscribe');
-      btn.disabled = false;
-    }
+      function setSubscribed(isSubscribed) {
+        subscribed = isSubscribed;
+        btn.textContent = isSubscribed ? 'Unsubscribe' : 'Subscribe';
+        btn.className = 'sub-btn ' + (isSubscribed ? 'sub-btn--unsubscribe' : 'sub-btn--subscribe');
+        btn.disabled = false;
+      }
 
-    if (!categoryId) {
-      btn.textContent = 'Subscribe';
-      btn.disabled = true;
-      showError('No categoryId query parameter found.');
-      return;
-    }
-
-    ChWebSdk.onReady(async function () {
-      try {
-        var isSubscribed = await ChWebSdk.Subscription.getCategorySubscriptionStatus(categoryId);
-        setSubscribed(isSubscribed);
-      } catch (e) {
+      if (!categoryId) {
         btn.textContent = 'Subscribe';
         btn.disabled = true;
-        showError('Failed to load subscription status.');
+        showError('No categoryId query parameter found.');
         return;
       }
 
-      btn.addEventListener('click', async function () {
-        btn.disabled = true;
-        showError('');
+      ChWebSdk.onReady(async function () {
         try {
-          if (subscribed) {
-            await ChWebSdk.Subscription.unsubscribeFromCategory(categoryId);
-          } else {
-            await ChWebSdk.Subscription.subscribeToCategory(categoryId);
-          }
-          setSubscribed(!subscribed);
+          var isSubscribed = await ChWebSdk.Subscription.getCategorySubscriptionStatus(categoryId);
+          setSubscribed(isSubscribed);
         } catch (e) {
-          btn.disabled = false;
-          showError('Action failed. Please try again.');
+          btn.textContent = 'Subscribe';
+          btn.disabled = true;
+          showError('Failed to load subscription status.');
+          return;
         }
+
+        btn.addEventListener('click', async function () {
+          btn.disabled = true;
+          showError('');
+          try {
+            if (subscribed) {
+              await ChWebSdk.Subscription.unsubscribeFromCategory(categoryId);
+            } else {
+              await ChWebSdk.Subscription.subscribeToCategory(categoryId);
+            }
+            setSubscribed(!subscribed);
+          } catch (e) {
+            btn.disabled = false;
+            showError('Action failed. Please try again.');
+          }
+        });
       });
-    });
+    }
+
+    if (document.readyState === 'complete') {
+      init();
+    } else {
+      window.addEventListener('load', init);
+    }
   })();
 </script>
