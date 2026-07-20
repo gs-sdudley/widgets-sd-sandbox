@@ -90,12 +90,6 @@
       return;
     }
 
-    if (typeof ChWebSdk === 'undefined') {
-      btn.disabled = true;
-      showError('Community SDK not available.');
-      return;
-    }
-
     ChWebSdk.onReady(async function () {
       try {
         var isSubscribed = await ChWebSdk.Subscription.getCategorySubscriptionStatus(categoryId);
