@@ -1,0 +1,135 @@
+<style>
+  .widget-root {
+    padding: var(--spacing-md, 16px);
+    font-family: var(--font-sans, system-ui, -apple-system, sans-serif);
+    color: var(--color-text, #1f2937);
+    box-sizing: border-box;
+  }
+
+  .weather-title {
+    font-size: var(--font-size-lg, 1.25rem);
+    font-weight: 600;
+    margin: 0 0 var(--spacing-md, 16px);
+  }
+
+  .weather-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: var(--spacing-sm, 8px);
+  }
+
+  .weather-day {
+    background: var(--color-bg-subtle, #f9fafb);
+    border: 1px solid var(--color-border, #e5e7eb);
+    border-radius: var(--radius-md, 8px);
+    padding: var(--spacing-sm, 8px);
+    text-align: center;
+  }
+
+  .weather-day-name {
+    font-size: var(--font-size-sm, 0.875rem);
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .weather-icon {
+    font-size: 1.5rem;
+    margin: 4px 0;
+  }
+
+  .weather-high {
+    font-size: var(--font-size-sm, 0.875rem);
+    font-weight: 600;
+  }
+
+  .weather-low {
+    font-size: var(--font-size-sm, 0.875rem);
+    color: var(--color-text-muted, #6b7280);
+  }
+
+  .weather-status {
+    font-size: var(--font-size-sm, 0.875rem);
+    color: var(--color-text-muted, #6b7280);
+  }
+
+  .weather-status--error {
+    color: var(--color-danger, #ef4444);
+  }
+
+  @media (max-width: 480px) {
+    .weather-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+</style>
+
+<div class="widget-root">
+  <h2 class="weather-title">Local Weather</h2>
+  <div id="weather-content" class="weather-status">Loading…</div>
+</div>
+
+<script>
+  (function () {
+    var currentScript = document.currentScript;
+
+    var DAY_NAMES = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+    var WEATHER_ICONS = {
+      0: '☀️', 1: '🌤️', 2: '⛅', 3: '☁️',
+      45: '🌫️', 48: '🌫️',
+      51: '🌦️', 53: '🌦️', 55: '🌧️',
+      61: '🌧️', 63: '🌧️', 65: '🌧️',
+      71: '🌨️', 73: '🌨️', 75: '❄️', 77: '❄️',
+      80: '🌦️', 81: '🌧️', 82: '⛈️',
+      85: '🌨️', 86: '❄️',
+      95: '⛈️', 96: '⛈️', 99: '⛈️'
+    };
+
+    function init() {
+      var root = (currentScript && currentScript.getRootNode()) || document;
+      var content = root.querySelector('#weather-content');
+      if (!content) return;
+
+      (async function () {
+        try {
+          var sdk = new WidgetServiceSDK();
+          var data = await sdk.connectors.execute({
+            permalink: 'weather-by-zip',
+            method: 'GET'
+          });
+
+          var daily = data.daily;
+          if (!daily) throw new Error('Unexpected response shape');
+
+          var html = '<div class="weather-grid">';
+          for (var i = 0; i < daily.time.length; i++) {
+            var date = new Date(daily.time[i] + 'T00:00:00');
+            var dayName = i === 0 ? 'Today' : DAY_NAMES[date.getDay()];
+            var icon = WEATHER_ICONS[daily.weathercode[i]] || '🌡️';
+            var high = Math.round(daily.temperature_2m_max[i]);
+            var low = Math.round(daily.temperature_2m_min[i]);
+            html += '<div class="weather-day">'
+              + '<div class="weather-day-name">' + dayName + '</div>'
+              + '<div class="weather-icon">' + icon + '</div>'
+              + '<div class="weather-high">' + high + '°</div>'
+              + '<div class="weather-low">' + low + '°</div>'
+              + '</div>';
+          }
+          html += '</div>';
+
+          content.className = '';
+          content.innerHTML = html;
+        } catch (e) {
+          content.className = 'weather-status weather-status--error';
+          content.textContent = 'Unable to load weather data.';
+        }
+      }());
+    }
+
+    if (document.readyState === 'complete') {
+      init();
+    } else {
+      window.addEventListener('load', init);
+    }
+  })();
+</script>

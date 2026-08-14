@@ -1,0 +1,32 @@
+{
+  "title": "Local weather",
+  "description": "A widget showing a users local weather",
+  "category": "Demo",
+  "source": {
+    "path": "dist",
+    "entry": "content.html"
+  },
+  "configuration": {
+    "properties": [
+      {
+        "name": "title",
+        "type": "text",
+        "label": "Title",
+        "defaultValue": "Local weather",
+        "rules": {
+          "required": true
+        }
+      },
+      {
+        "name": "description",
+        "type": "text",
+        "label": "Description",
+        "defaultValue": "A widget showing a users local weather"
+      }
+    ]
+  },
+  "defaultConfig": {
+    "title": "Local weather",
+    "description": "A widget showing a users local weather"
+  }
+}
