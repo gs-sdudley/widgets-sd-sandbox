@@ -6,7 +6,7 @@
       "steps": [
         {
           "name": "zip-to-coords",
-          "url": "https://api.zippopotam.us/us/{{ user.profile_fields.by_id(10) }}",
+          "url": "https://api.zippopotam.us/us/80602",
           "method": "GET",
           "headers": [
             {
