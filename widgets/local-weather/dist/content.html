@@ -135,15 +135,22 @@
 </script> -->
 
 <script>
-  (async () => {
-    const sdk = new window.WidgetServiceSDK();
+  (function () {
+    async function init() {
+      const sdk = new window.WidgetServiceSDK();
 
-    const data = await sdk.connectors.execute({
-      permalink: "weather-api",
-      method: "GET",
-      queryParams: { q: "Warsaw" }
-    });
+      const data = await sdk.connectors.execute({
+        permalink: "weather-by-zip",
+        method: "GET"
+      });
 
-    console.log(data);
+      console.log(data);
+    }
+
+    if (document.readyState === 'complete') {
+      init();
+    } else {
+      window.addEventListener('load', init);
+    }
   })();
 </script>
