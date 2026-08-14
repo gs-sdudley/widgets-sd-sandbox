@@ -92,11 +92,11 @@
           "query_parameters": [
             {
               "key": "latitude",
-              "value": "{{ (steps.zip-to-coords.body | from_json).places[0].latitude }}"
+              "value": "{{ (steps['zip-to-coords'].body | from_json).places[0].latitude }}"
             },
             {
               "key": "longitude",
-              "value": "{{ (steps.zip-to-coords.body | from_json).places[0].longitude }}"
+              "value": "{{ (steps['zip-to-coords'].body | from_json).places[0].longitude }}"
             },
             {
               "key": "daily",
