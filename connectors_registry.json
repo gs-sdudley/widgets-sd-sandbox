@@ -122,18 +122,6 @@
       "permalink": "weather-by-zip-2",
       "steps": [
         {
-          "name": "zip-to-coords",
-          "url": "https://api.zippopotam.us/us/80602",
-          "method": "GET",
-          "headers": [
-            {
-              "key": "Accept",
-              "value": "application/json",
-              "overridable": false
-            }
-          ]
-        },
-        {
           "name": "weather-forecast-2",
           "url": "https://api.open-meteo.com/v1/forecast",
           "method": "GET",
