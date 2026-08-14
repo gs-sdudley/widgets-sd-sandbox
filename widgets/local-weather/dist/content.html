@@ -68,7 +68,7 @@
   <div id="weather-content" class="weather-status">Loading…</div>
 </div>
 
-<script>
+<!-- <script>
   (function () {
     var currentScript = document.currentScript;
 
@@ -131,5 +131,19 @@
     } else {
       window.addEventListener('load', init);
     }
+  })();
+</script> -->
+
+<script>
+  (async () => {
+    const sdk = new window.WidgetServiceSDK();
+
+    const data = await sdk.connectors.execute({
+      permalink: "weather-api",
+      method: "GET",
+      queryParams: { q: "Warsaw" }
+    });
+
+    console.log(data);
   })();
 </script>
