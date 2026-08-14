@@ -2,6 +2,7 @@
   "title": "Local weather",
   "description": "A widget showing a users local weather",
   "category": "Demo",
+  "containers": ["Full width", "Left container", "Sidebar"],
   "source": {
     "path": "dist",
     "entry": "content.html"

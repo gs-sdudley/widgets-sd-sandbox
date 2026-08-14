@@ -164,6 +164,11 @@
       "title": "Local weather",
       "description": "A widget showing a users local weather",
       "category": "Demo",
+      "containers": [
+        "Full width",
+        "Left container",
+        "Sidebar"
+      ],
       "source": {
         "path": "widgets/local-weather/dist",
         "entry": "content.html"
