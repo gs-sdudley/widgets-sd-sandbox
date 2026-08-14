@@ -99,6 +99,24 @@
           ]
         }
       ]
+    },
+    {
+      "name": "Where am I",
+      "permalink": "where-am-i",
+      "steps": [
+        {
+          "name": "coords-by-zip",
+          "url": "https://api.zippopotam.us/us/80602",
+          "method": "GET",
+          "headers": [
+            {
+              "key": "Accept",
+              "value": "application/json",
+              "overridable": false
+            }
+          ]
+        }
+      ]
     }
   ]
 }
