@@ -63,7 +63,7 @@
   ],
   "composite_connectors": [
     {
-      "name": "Weather by Zip Code",
+      "name": "Weather by Zip Code - not working",
       "permalink": "weather-by-zip",
       "steps": [
         {
@@ -97,6 +97,51 @@
             {
               "key": "longitude",
               "value": "{{ (steps['zip-to-coords'].body | from_json).places[0].longitude }}"
+            },
+            {
+              "key": "daily",
+              "value": "temperature_2m_max,temperature_2m_min,weathercode",
+              "overridable": false
+            },
+            {
+              "key": "timezone",
+              "value": "auto",
+              "overridable": false
+            },
+            {
+              "key": "forecast_days",
+              "value": "7",
+              "overridable": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Weather by Zip Take Two",
+      "permalink": "weather-by-zip-2",
+      "steps": [
+        {
+          "name": "weather-forecast-2",
+          "url": "https://api.open-meteo.com/v1/forecast",
+          "method": "GET",
+          "headers": [
+            {
+              "key": "Accept",
+              "value": "application/json",
+              "overridable": false
+            }
+          ],
+          "query_parameters": [
+            {
+              "key": "latitude",
+              "value": "52.52",
+              "overridable": true
+            },
+            {
+              "key": "longitude",
+              "value": "13.41",
+              "overridable": true
             },
             {
               "key": "daily",
