@@ -101,18 +101,55 @@
       ]
     },
     {
-      "name": "Where am I",
-      "permalink": "where-am-i",
+      "name": "Weather by Location",
+      "permalink": "weather-by-location",
       "steps": [
         {
-          "name": "coords-by-zip",
-          "url": "https://api.zippopotam.us/us/80602",
+          "name": "zip-to-coords",
+          "url": "https://nominatim.openstreetmap.org/search?postalcode={{ user.profile_fields.by_id(10) }}&country=us&format=json&limit=1",
           "method": "GET",
           "headers": [
             {
               "key": "Accept",
               "value": "application/json",
               "overridable": false
+            }
+          ]
+        },
+        {
+          "name": "weather-forecast",
+          "url": "https://api.open-meteo.com/v1/forecast",
+          "method": "GET",
+          "headers": [
+            {
+              "key": "Accept",
+              "value": "application/json",
+              "overridable": false
+            }
+          ],
+          "query_parameters": [
+            {
+              "key": "latitude",
+              "value": "{{ (steps['zip-to-coords'].body | from_json)[0].lat }}"
+            },
+            {
+              "key": "longitude",
+              "value": "{{ (steps['zip-to-coords'].body | from_json)[0].lon }}"
+            },
+            {
+              "key": "daily",
+              "value": "temperature_2m_max,temperature_2m_min,weathercode",
+              "overridable": false
+            },
+            {
+              "key": "timezone",
+              "value": "auto",
+              "overridable": false
+            },
+            {
+              "key": "forecast_days",
+              "value": "7",
+              "overridable": true
             }
           ]
         }
